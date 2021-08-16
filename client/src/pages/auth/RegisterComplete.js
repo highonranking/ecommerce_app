@@ -7,14 +7,48 @@ const RegisterComplete = ({history}) => {
     const [password, setPassword] = useState("");
     
 
-    useState(() => {
+    useEffect(() => {
         setEmail(window.localStorage.getItem('emailForRegistration'));
     }, []);
     
     const handleSubmit = async (e) => {
-        e.preventDefault() ; 
-        
+        e.preventDefault();
         // prevent browser from reload
+        //validation
+        if(!email || !password){
+            toast.error('Email and Password is required!');
+            return;
+        }
+
+        if(password.length < 6){
+            toast.error('Password should be atleast 6 characters long!');
+            return;
+        }
+        
+        try{
+            const result = await auth.signInWithEmailLink(
+                email, 
+                window.location.href
+                );
+             //   console.log('RESULT', result);
+             if(result.user.emailVerified){
+                 // local email remove
+                window.localStorage.removeItem('emailForRegistration');
+
+                 // get id token
+                 let user = auth.currentUser;
+                 await user.updatePassword(password);
+                 const idTokenResult = await user.getIdTokenResult();
+                // redux store
+                console.log('user', user, 'idTokenResult', idTokenResult);
+                 //redirect
+                 history.push('/');
+             }
+        } catch(error){
+            console.log(error);
+            toast.error(error.message);
+        }
+
        
     };
     const completeRegistrationForm = () => (
@@ -34,7 +68,7 @@ const RegisterComplete = ({history}) => {
          />
 
         <div className="text-center mt-3">
-        <button type="submit" className="btn btn-lg btn-success btn-raised mt-4">
+        <button type="submit" className="btn btn-lg btn- btn-raised mt-4 btn-success">
            Complete  Registration
          </button>
         </div>

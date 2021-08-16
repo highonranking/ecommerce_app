@@ -31,7 +31,7 @@ const Register = () => {
          autoFocus
          />
         <div className="text-center">
-        <button type="submit" className="btn btn-lg btn-success btn-raised mt-4">
+        <button type="submit" className="btn btn-lg btn-info btn-raised mt-4">
              Register
          </button>
         </div>
