@@ -8,28 +8,40 @@ const RegisterComplete = ({history}) => {
     
 
     useState(() => {
-        console.log(window.localStorage.getItem('emailForRegistration'));
+        setEmail(window.localStorage.getItem('emailForRegistration'));
     }, []);
     
     const handleSubmit = async (e) => {
-        e.preventDefault() ;   // prevent browser from reload
+        e.preventDefault() ; 
+        
+        // prevent browser from reload
        
     };
-    const completeRegistrationForm = () => <form onSubmit={handleSubmit}>
+    const completeRegistrationForm = () => (
+    <form onSubmit={handleSubmit}>
         <input type="email"
          className="form-control" 
          value={email} 
-         onChange={e => setEmail(e.target.value)}
+         disabled
+         />
+
+        <input type="password"
+         className="form-control mt-3" 
+         value={password} 
+         onChange={e => setPassword(e.target.value)}
+         placeholder="Type Strong Password"
          autoFocus
          />
-        <div className="text-center">
+
+        <div className="text-center mt-3">
         <button type="submit" className="btn btn-lg btn-success btn-raised mt-4">
-           Complete  Register
+           Complete  Registration
          </button>
         </div>
         
         
     </form>
+    );
     return (
         <div className="container p-5">
             <div className="row">

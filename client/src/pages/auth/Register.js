@@ -22,7 +22,8 @@ const Register = () => {
         setEmail("");
 
     }
-    const registerForm = () => <form onSubmit={handleSubmit}>
+    const registerForm = () =>( 
+    <form onSubmit={handleSubmit}>
         <input type="email"
          className="form-control" 
          value={email} 
@@ -37,6 +38,7 @@ const Register = () => {
         
         
     </form>
+    );
     return (
         <div className="container p-5">
             <div className="row">
