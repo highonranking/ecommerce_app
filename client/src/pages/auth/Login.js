@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {auth, googleAuthProvider} from '../../firebase';
 import {toast} from "react-toastify";
 import {Button} from 'antd';
 import {MailOutlined, LoadingOutlined, GoogleOutlined} from "@ant-design/icons";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
@@ -11,6 +11,13 @@ const Login = ({history}) => {
     const [email, setEmail] = useState("abhinav230601@gmail.com");
     const [password, setPassword] = useState("111111");
     const [loading, setLoading] = useState(false);
+    
+    const {user} = useSelector((state) => ({...state}));
+
+    useEffect(() => {
+        if(user && user.token)
+            history.push('/');
+    }, [user]);
     
 
     let dispatch = useDispatch();
@@ -30,7 +37,7 @@ const Login = ({history}) => {
               token: idTokenResult.token,
             },
           });
-          toast.success(`Logged in with ${email}`);
+          toast.success(`Welcome ${email.split('@')[0]}`);
           history.push('/');
        }catch (error){
             console.error(error);
