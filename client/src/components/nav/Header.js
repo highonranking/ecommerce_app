@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Menu } from 'antd';
-import {SettingOutlined, UserOutlined, UserAddOutlined, HomeOutlined, LogoutOutlined } from '@ant-design/icons';
+import {SettingOutlined, UserOutlined, UserAddOutlined, HomeOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 
 import firebase from 'firebase';
@@ -33,7 +33,7 @@ const logout = () => {
 return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
         <Item key="home" icon={<HomeOutlined /> }>
-          <Link to="/">Home -  {JSON.stringify(user)}</Link>
+          <Link to="/">Home</Link>
         </Item>
         {!user && (
         <Item key="register" icon={<UserAddOutlined /> } className="float-end">
@@ -47,7 +47,7 @@ return (
         )}
        
        {
-         user && ( <SubMenu icon={<SettingOutlined />} title="Username">
+         user && ( <SubMenu icon={<MenuOutlined />} title={user.email && user.email.split('@')[0]} className="float-end"> 
           
          <Item key="setting:1">Option 1</Item>
          <Item key="setting:2">Option 2</Item>
