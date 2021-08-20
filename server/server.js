@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config()
 
+//import routes
+const authRoutes = require('./routes/auth');
+
 //app
 const app = express();
 
@@ -23,13 +26,9 @@ app.use(morgan("dev"));
 app.use(express.json({limit: "2mb"}));
 app.use(cors());
 
-//route
+// routes-middleware
+app.use('/api', authRoutes);
 
-app.get('/api', (req, res) => {
-    res.json({
-        data: 'a node api is hitted',
-    });
-});
 
 // port
 const port = process.env.PORT || 8000;
