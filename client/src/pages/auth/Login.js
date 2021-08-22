@@ -5,7 +5,19 @@ import {Button} from 'antd';
 import {MailOutlined, LoadingOutlined, GoogleOutlined} from "@ant-design/icons";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
+const createOrUpdateUser = async (authToken) => {
+    return await axios.post(
+        `${process.env.REACT_APP_API}/create-or-update-user`,
+         {},
+          {
+        headers:{
+            authToken: authToken,
+        },
+    }
+    );
+};
 
 const Login = ({history}) => {
     const [email, setEmail] = useState("abhinav230601@gmail.com");
@@ -30,15 +42,22 @@ const Login = ({history}) => {
       //console.log(result);
         const {user} = result;
         const idTokenResult = await user.getIdTokenResult();
-        dispatch({
-            type : 'LOGGED_IN_USER',
-            payload: {
-              email: user.email,
-              token: idTokenResult.token,
-            },
-          });
-          toast.success(`Welcome ${email.split('@')[0]}`);
-          history.push('/');
+
+        createOrUpdateUser(idTokenResult.token)
+        .then(
+           ( res )=> console.log("CREATE OR UPDATE RES", res)
+        )
+        .catch()
+
+        // dispatch({
+        //     type : 'LOGGED_IN_USER',
+        //     payload: {
+        //       email: user.email,
+        //       token: idTokenResult.token,
+        //     },
+        //   });
+        //   toast.success(`Welcome ${email.split('@')[0]}`);
+        //   history.push('/');
        }catch (error){
             console.error(error);
             toast.error(error.message);
