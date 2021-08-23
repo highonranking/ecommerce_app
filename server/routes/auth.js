@@ -8,7 +8,7 @@ const {authCheck} = require('../middlewares/auth');
 // controllers
 
 const { createOrUpdateUser } = require('../controllers/auth');
-const { auth } = require('firebase-admin');
+//const { auth } = require('firebase-admin');
 
 router.post('/create-or-update-user', authCheck,  createOrUpdateUser);
 

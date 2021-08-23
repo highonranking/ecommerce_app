@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const createOrUpdateUser = async (authToken) => {
+const createOrUpdateUser = async (authtoken) => {
     return await axios.post(
         `${process.env.REACT_APP_API}/create-or-update-user`,
          {},
           {
         headers:{
-            authToken: authToken,
+            authtoken,
         },
     }
     );
@@ -36,7 +36,7 @@ const Login = ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault() ;  
          // prevent browser from reload
-         setLoading(true)
+         setLoading(true);
        try{
       const result =  await auth.signInWithEmailAndPassword(email, password);
       //console.log(result);
@@ -44,10 +44,8 @@ const Login = ({history}) => {
         const idTokenResult = await user.getIdTokenResult();
 
         createOrUpdateUser(idTokenResult.token)
-        .then(
-           ( res )=> console.log("CREATE OR UPDATE RES", res)
-        )
-        .catch()
+        .then((res) => console.log("CREATE OR UPDATE RES", res))
+        .catch();
 
         // dispatch({
         //     type : 'LOGGED_IN_USER',
