@@ -45,9 +45,9 @@ const Login = ({history}) => {
                   _id: res.data._id,
                 },
               });
-              toast.success(`Welcome ${email.split('@')[0]}`);
+              toast.success(`Welcome ${res.data.name}`);
         })
-        .catch();
+        .catch(err => console.log(err));
 
         
            history.push('/');
@@ -75,10 +75,10 @@ const Login = ({history}) => {
                       _id: res.data._id,
                     },
                   });
-                  toast.success(`Welcome ${email.split('@')[0]}`);
+                  toast.success(`Welcome ${res.data.name}`);
             })
-            .catch();
-              toast.success(`Logged in with ${email}`);
+            .catch(err => console.log(err));
+             // toast.success(`Logged in with ${email}`);
               history.push('/');
         })
         .catch((err) => {

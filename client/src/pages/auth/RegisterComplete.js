@@ -62,7 +62,7 @@ const RegisterComplete = ({history}) => {
                        });
                        toast.success(`Welcome ${email.split('@')[0]}`);
                  })
-                 .catch();
+                 .catch(err => console.log(err));
                  history.push('/');
              }
         } catch(error){
