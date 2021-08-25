@@ -1,4 +1,4 @@
-import React, {useState, UseEffect, useEffect} from"react";
+import React, {useState, useEffect} from"react";
 import { useHistory } from "react-router-dom";
 import { useLoading, BallTriangle } from "@agney/react-loading";
 
@@ -22,7 +22,7 @@ const LoadingToRedirect = () => {
 
         return() => clearInterval(interval);
 
-    }, [count]);
+    }, [count, history]);
 
     return (
         <div className="container p-5 text-center">
