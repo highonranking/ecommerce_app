@@ -9,7 +9,7 @@ const AdminDashboard = () => {
                 <AdminNav/>
             </div>
             <div className="col">
-                Admin Dashboard
+                Admin Dashboard 
             </div>
         </div>
     </div>
